@@ -173,6 +173,11 @@ p {
     padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* Safe area padding bottom */
+.pb-safe {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
 /* Hide scrollbar but allow scroll */
 .scrollbar-hide {
     -ms-overflow-style: none;
@@ -181,4 +186,192 @@ p {
 
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
+}
+
+/* ============================================
+   MOBILE / TELEGRAM MINI APP FIXES
+   ============================================ */
+
+/* Prevent text overflow globally */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Force word break for long text */
+.break-words {
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobile-specific typography scaling */
+@media (max-width: 640px) {
+    h1 {
+        font-size: theme(fontSize.2xl) !important;
+    }
+
+    h2 {
+        font-size: theme(fontSize.xl) !important;
+    }
+
+    h3 {
+        font-size: theme(fontSize.lg) !important;
+    }
+
+    /* Smaller padding on mobile */
+    .p-4 {
+        padding: 0.75rem !important;
+    }
+
+    .p-6 {
+        padding: 1rem !important;
+    }
+
+    .p-8 {
+        padding: 1rem !important;
+    }
+
+    /* Smaller gaps on mobile */
+    .gap-4 {
+        gap: 0.75rem !important;
+    }
+
+    .gap-6 {
+        gap: 1rem !important;
+    }
+
+    .gap-8 {
+        gap: 1rem !important;
+    }
+
+    /* Ensure buttons are touch-friendly (min 44px) */
+    button,
+    [role="button"],
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Fix text overflow in cards */
+    .glass-card p,
+    .glass-card span,
+    .glass-card h1,
+    .glass-card h2,
+    .glass-card h3 {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Prevent horizontal scroll */
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Container width limits for mobile */
+@media (max-width: 640px) {
+    .max-w-6xl {
+        max-width: 100% !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+}
+
+/* Modal fixes for mobile */
+@media (max-width: 640px) {
+    [role="dialog"] {
+        max-width: calc(100vw - 32px) !important;
+        max-height: calc(100vh - 80px) !important;
+        margin: 16px !important;
+    }
+
+    [role="dialog"]>div {
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+}
+
+/* Input/Textarea touch-friendly */
+input,
+textarea,
+select {
+    font-size: 16px !important;
+    /* Prevents iOS zoom */
+    min-height: 44px;
+}
+
+/* Grid responsive fixes */
+@media (max-width: 640px) {
+    .grid-cols-2:not(.md\:grid-cols-2) {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .grid-cols-3,
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Navigation bar fixes */
+@media (max-width: 640px) {
+    nav {
+        padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+    }
+}
+
+/* Card content overflow fix */
+.card-content {
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Flex item shrink fix */
+.flex-1 {
+    min-width: 0;
+}
+
+/* Long text handling */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Telegram-specific safe areas */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .telegram-safe-top {
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .telegram-safe-bottom {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Touch action improvements */
+button,
+a,
+[onclick] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on interactive elements */
+button,
+nav,
+.nav-item {
+    -webkit-user-select: none;
+    user-select: none;
 }
