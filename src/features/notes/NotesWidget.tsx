@@ -109,61 +109,61 @@ export const NotesWidget = ({ externalOpen, onExternalClose }: NotesWidgetProps 
                 {isOpen ? <X className="w-6 h-6 text-white" /> : <StickyNote className="w-6 h-6 text-white" />}
             </button>
 
-            {/* Notes Panel - Full screen modal on mobile */}
+            {/* Notes Panel - Compact modal */}
             <div
                 ref={widgetRef}
                 className={cn(
-                    "fixed z-50 rounded-2xl overflow-hidden transition-all duration-300 transform",
+                    "fixed z-50 rounded-xl overflow-hidden transition-all duration-300 transform",
                     "bg-gray-900/98 backdrop-blur-xl border border-gray-700 shadow-2xl",
                     // Desktop: positioned bottom-right
-                    "sm:bottom-24 sm:right-6 sm:w-80 md:w-96 sm:max-h-[70vh]",
-                    // Mobile: Full screen modal style  
-                    "inset-4 sm:inset-auto max-h-[80vh] sm:max-h-[70vh]",
+                    "sm:bottom-24 sm:right-6 sm:w-72 md:w-80 sm:max-h-[60vh]",
+                    // Mobile: Compact modal with margins 
+                    "inset-x-4 bottom-24 top-auto max-h-[50vh] sm:inset-auto",
                     isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4 pointer-events-none"
                 )}
             >
-                {/* Header */}
-                <div className="p-4 border-b border-gray-800">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                            <StickyNote className="w-5 h-5 text-yellow-400" />
-                            <h3 className="font-semibold text-white">Quick Notes</h3>
-                        </div>
-                        <span className="text-xs text-gray-500">{activeNotes.length} notes</span>
+                {/* Header - Compact */}
+                <div className="px-3 py-2.5 border-b border-gray-800 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <StickyNote className="w-4 h-4 text-yellow-400" />
+                        <h3 className="font-semibold text-white text-sm">Quick Notes</h3>
                     </div>
+                    <span className="text-xs text-gray-500">{activeNotes.length}</span>
+                </div>
 
-                    {/* Search */}
+                {/* Search - Compact */}
+                <div className="px-3 py-2 border-b border-gray-800">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
                         <input
                             type="text"
-                            placeholder="Search notes..."
+                            placeholder="Search..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
+                            className="w-full pl-8 pr-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-lg text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
                         />
                     </div>
                 </div>
 
-                {/* Add Note */}
-                <div className="p-4 border-b border-gray-800">
+                {/* Add Note - Compact */}
+                <div className="px-3 py-2 border-b border-gray-800">
                     <textarea
                         ref={inputRef}
                         value={newNote}
                         onChange={(e) => setNewNote(e.target.value)}
                         onKeyDown={handleKeyPress}
-                        placeholder="Capture a quick thought... (Enter to save)"
-                        rows={2}
-                        className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-white placeholder:text-gray-500 resize-none focus:outline-none focus:border-cyan-400"
+                        placeholder="Quick note... (Enter to save)"
+                        rows={1}
+                        className="w-full p-2 bg-gray-800/50 border border-gray-700 rounded-lg text-xs text-white placeholder:text-gray-500 resize-none focus:outline-none focus:border-cyan-400"
                     />
-                    <div className="flex items-center justify-between mt-2">
-                        <div className="flex gap-1.5">
+                    <div className="flex items-center justify-between mt-1.5">
+                        <div className="flex gap-1">
                             {NOTE_COLORS.map((color) => (
                                 <button
                                     key={color}
                                     onClick={() => setSelectedColor(color)}
                                     className={cn(
-                                        "w-5 h-5 rounded-full transition-transform",
+                                        "w-4 h-4 rounded-full transition-transform",
                                         selectedColor === color && "ring-2 ring-white ring-offset-1 ring-offset-gray-900 scale-110"
                                     )}
                                     style={{ backgroundColor: color }}
@@ -174,7 +174,7 @@ export const NotesWidget = ({ externalOpen, onExternalClose }: NotesWidgetProps 
                             onClick={handleAddNote}
                             disabled={!newNote.trim()}
                             className={cn(
-                                "px-3 py-1.5 rounded-lg text-sm font-medium transition-all",
+                                "px-2 py-1 rounded-md text-xs font-medium transition-all",
                                 newNote.trim()
                                     ? "bg-cyan-400 text-gray-900 hover:bg-cyan-300"
                                     : "bg-gray-700 text-gray-500 cursor-not-allowed"

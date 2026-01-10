@@ -137,7 +137,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
 
                 {/* Content */}
                 <div className="flex-1 overflow-y-auto scrollbar-hide">
-                    <div className="p-4 md:p-8 max-w-6xl mx-auto w-full">
+                    <div className="px-4 py-4 md:p-8 max-w-6xl mx-auto w-full">
                         {children}
                     </div>
                 </div>

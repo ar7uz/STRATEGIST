@@ -166,7 +166,7 @@ export const EisenhowerView = () => {
                 onDrop={(e) => handleDrop(e, quadrant.id)}
                 onClick={() => setSelectedQuadrant(isSelected ? null : quadrant.id)}
                 className={cn(
-                    "flex flex-col rounded-2xl border-2 transition-all min-h-[280px] cursor-pointer",
+                    "flex flex-col rounded-xl border-2 transition-all min-h-[180px] sm:min-h-[220px] cursor-pointer",
                     `bg-gradient-to-br ${quadrant.bgColor}`,
                     hoveredQuadrant === quadrant.id
                         ? "border-cyan-400 scale-[1.02] shadow-lg"
@@ -175,24 +175,24 @@ export const EisenhowerView = () => {
                             : "border-gray-800 hover:border-gray-700"
                 )}
             >
-                {/* Header */}
-                <div className="p-4 border-b border-gray-800/50">
+                {/* Header - Compact */}
+                <div className="p-3 border-b border-gray-800/50">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
                             <div
-                                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                                className="w-8 h-8 rounded-lg flex items-center justify-center"
                                 style={{ backgroundColor: `${quadrant.color}20` }}
                             >
-                                <Icon className="w-5 h-5" style={{ color: quadrant.color }} />
+                                <Icon className="w-4 h-4" style={{ color: quadrant.color }} />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-white">{quadrant.name}</h3>
-                                <p className="text-xs text-gray-500">{quadrant.description}</p>
+                                <h3 className="font-semibold text-white text-sm">{quadrant.name}</h3>
+                                <p className="text-[10px] text-gray-500">{quadrant.description}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
                             <span
-                                className="px-2.5 py-1 rounded-full text-sm font-bold"
+                                className="px-2 py-0.5 rounded-full text-xs font-bold"
                                 style={{ backgroundColor: `${quadrant.color}20`, color: quadrant.color }}
                             >
                                 {quadrantTasks.length}
@@ -294,16 +294,16 @@ export const EisenhowerView = () => {
     };
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-yellow-500 flex items-center justify-center">
-                        <Target className="w-7 h-7 text-white" />
+        <div className="space-y-4">
+            {/* Header - Mobile Optimized */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-red-500 to-yellow-500 flex items-center justify-center flex-shrink-0">
+                        <Target className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-white">Eisenhower Matrix</h1>
-                        <p className="text-gray-400 mt-1">Prioritize by urgency and importance</p>
+                        <h1 className="text-xl sm:text-2xl font-bold text-white">Eisenhower Matrix</h1>
+                        <p className="text-gray-400 text-xs sm:text-sm">Prioritize by urgency and importance</p>
                     </div>
                 </div>
                 <div className="flex gap-2">
@@ -311,14 +311,16 @@ export const EisenhowerView = () => {
                         variant="outline"
                         onClick={() => setShowCompleted(!showCompleted)}
                         size="sm"
+                        className="text-xs"
                     >
-                        {showCompleted ? 'Hide Completed' : 'Show Completed'}
+                        {showCompleted ? 'Hide' : 'Show'} Completed
                     </Button>
                     <Button
                         variant="outline"
                         onClick={autoAssignQuadrants}
-                        leftIcon={<RefreshCw className="w-4 h-4" />}
+                        leftIcon={<RefreshCw className="w-3.5 h-3.5" />}
                         size="sm"
+                        className="text-xs"
                     >
                         Auto-Assign
                     </Button>

@@ -70,66 +70,66 @@ export const AnalyticsView = () => {
                 <p className="text-gray-400 mt-1">Performance metrics and strategic insights</p>
             </div>
 
-            {/* Key Metrics */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Key Metrics - Compact */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* GDP */}
-                <Card variant="elevated" className="relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full blur-2xl" />
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-cyan-400/10 flex items-center justify-center">
-                            <Activity className="w-5 h-5 text-cyan-400" />
+                <Card variant="elevated" className="relative overflow-hidden py-3 px-4">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full blur-xl" />
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-lg bg-cyan-400/10 flex items-center justify-center">
+                            <Activity className="w-4 h-4 text-cyan-400" />
                         </div>
-                        <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Daily GDP</span>
+                        <span className="text-xs font-medium text-gray-400 uppercase">Daily GDP</span>
                     </div>
-                    <div className="text-4xl font-bold text-cyan-400 font-mono">
+                    <div className="text-2xl font-bold text-cyan-400 font-mono">
                         {metrics.gdp}
                     </div>
-                    <div className="text-sm text-green-400 mt-1 flex items-center gap-1">
+                    <div className="text-xs text-green-400 mt-0.5 flex items-center gap-1">
                         <TrendingUp className="w-3 h-3" /> +12% vs avg
                     </div>
                 </Card>
 
                 {/* Inflation */}
-                <Card variant="elevated" className="relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-400/20 to-transparent rounded-full blur-2xl" />
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-orange-400/10 flex items-center justify-center">
-                            <AlertTriangle className="w-5 h-5 text-orange-400" />
+                <Card variant="elevated" className="relative overflow-hidden py-3 px-4">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-transparent rounded-full blur-xl" />
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-lg bg-orange-400/10 flex items-center justify-center">
+                            <AlertTriangle className="w-4 h-4 text-orange-400" />
                         </div>
-                        <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Inflation</span>
+                        <span className="text-xs font-medium text-gray-400 uppercase">Inflation</span>
                     </div>
-                    <div className={`text-4xl font-bold font-mono ${metrics.inflation > 20 ? 'text-orange-400' : 'text-white'}`}>
-                        {metrics.inflation > 0 ? '+' : ''}{metrics.inflation}%
+                    <div className={`text-2xl font-bold font-mono ${metrics.inflation > 20 ? 'text-orange-400' : 'text-white'}`}>
+                        {metrics.inflation}%
                     </div>
-                    <div className="text-sm text-gray-500 mt-1">Time overspend rate</div>
+                    <div className="text-xs text-gray-500 mt-0.5">Time overspend rate</div>
                 </Card>
 
                 {/* Focus Time */}
-                <Card variant="elevated">
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-purple-400/10 flex items-center justify-center">
-                            <Clock className="w-5 h-5 text-purple-400" />
+                <Card variant="elevated" className="py-3 px-4">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-lg bg-purple-400/10 flex items-center justify-center">
+                            <Clock className="w-4 h-4 text-purple-400" />
                         </div>
-                        <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Focus Time</span>
+                        <span className="text-xs font-medium text-gray-400 uppercase">Focus</span>
                     </div>
-                    <div className="text-4xl font-bold text-white font-mono">
-                        {metrics.focusHours}<span className="text-lg text-gray-400">h</span>
+                    <div className="text-2xl font-bold text-white font-mono">
+                        {metrics.focusHours}<span className="text-sm text-gray-400">h</span>
                     </div>
-                    <div className="text-sm text-gray-500 mt-1">{metrics.focusMinutes} minutes today</div>
+                    <div className="text-xs text-gray-500 mt-0.5">{metrics.focusMinutes} min today</div>
                 </Card>
 
                 {/* Throughput */}
-                <Card variant="elevated">
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-green-400/10 flex items-center justify-center">
-                            <Target className="w-5 h-5 text-green-400" />
+                <Card variant="elevated" className="py-3 px-4">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-lg bg-green-400/10 flex items-center justify-center">
+                            <Target className="w-4 h-4 text-green-400" />
                         </div>
-                        <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">Throughput</span>
+                        <span className="text-xs font-medium text-gray-400 uppercase">Throughput</span>
                     </div>
-                    <div className="text-4xl font-bold text-white font-mono">
+                    <div className="text-2xl font-bold text-white font-mono">
                         {metrics.tasksCount}
                     </div>
-                    <div className="text-sm text-gray-500 mt-1">Tasks completed</div>
+                    <div className="text-xs text-gray-500 mt-0.5">Tasks completed</div>
                 </Card>
             </div>
 

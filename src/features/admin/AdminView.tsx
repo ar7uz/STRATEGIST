@@ -141,38 +141,38 @@ export const AdminView = () => {
                 </div>
             )}
 
-            {/* Stats Overview */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Card className="text-center py-6">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-cyan-400/10 flex items-center justify-center mb-3">
-                        <Target className="w-6 h-6 text-cyan-400" />
+            {/* Stats Overview - Compact */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <Card className="text-center py-4">
+                    <div className="w-10 h-10 mx-auto rounded-xl bg-cyan-400/10 flex items-center justify-center mb-2">
+                        <Target className="w-5 h-5 text-cyan-400" />
                     </div>
-                    <p className="text-3xl font-bold text-white">{tasks.filter(t => !t.isTemplate).length}</p>
-                    <p className="text-sm text-gray-500">Total Tasks</p>
+                    <p className="text-2xl font-bold text-white">{tasks.filter(t => !t.isTemplate).length}</p>
+                    <p className="text-xs text-gray-500">Total Tasks</p>
                 </Card>
 
-                <Card className="text-center py-6">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-green-400/10 flex items-center justify-center mb-3">
-                        <CheckCircle className="w-6 h-6 text-green-400" />
+                <Card className="text-center py-4">
+                    <div className="w-10 h-10 mx-auto rounded-xl bg-green-400/10 flex items-center justify-center mb-2">
+                        <CheckCircle className="w-5 h-5 text-green-400" />
                     </div>
-                    <p className="text-3xl font-bold text-white">{completedTasks.length}</p>
-                    <p className="text-sm text-gray-500">Completed</p>
+                    <p className="text-2xl font-bold text-white">{completedTasks.length}</p>
+                    <p className="text-xs text-gray-500">Completed</p>
                 </Card>
 
-                <Card className="text-center py-6">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-orange-400/10 flex items-center justify-center mb-3">
-                        <Flame className="w-6 h-6 text-orange-400" />
+                <Card className="text-center py-4">
+                    <div className="w-10 h-10 mx-auto rounded-xl bg-orange-400/10 flex items-center justify-center mb-2">
+                        <Flame className="w-5 h-5 text-orange-400" />
                     </div>
-                    <p className="text-3xl font-bold text-white">{habits.length}</p>
-                    <p className="text-sm text-gray-500">Habits</p>
+                    <p className="text-2xl font-bold text-white">{habits.length}</p>
+                    <p className="text-xs text-gray-500">Habits</p>
                 </Card>
 
-                <Card className="text-center py-6">
-                    <div className="w-12 h-12 mx-auto rounded-xl bg-purple-400/10 flex items-center justify-center mb-3">
-                        <Clock className="w-6 h-6 text-purple-400" />
+                <Card className="text-center py-4">
+                    <div className="w-10 h-10 mx-auto rounded-xl bg-purple-400/10 flex items-center justify-center mb-2">
+                        <Clock className="w-5 h-5 text-purple-400" />
                     </div>
-                    <p className="text-3xl font-bold text-white">{Math.round(totalFocusMinutes / 60)}h</p>
-                    <p className="text-sm text-gray-500">Focus Time</p>
+                    <p className="text-2xl font-bold text-white">{Math.round(totalFocusMinutes / 60)}h</p>
+                    <p className="text-xs text-gray-500">Focus Time</p>
                 </Card>
             </div>
 
