@@ -14,19 +14,20 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
         const variants = {
             default: `
-        bg-gray-900/60 backdrop-blur-xl 
-        border border-gray-800/50
-        shadow-card
-      `,
+                bg-gray-900/80 backdrop-blur-xl 
+                border border-gray-700/60
+                shadow-[0_2px_8px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.03)]
+            `,
             elevated: `
-        bg-gray-800/80 backdrop-blur-xl
-        border border-gray-700/50
-        shadow-elevated
-      `,
+                bg-gray-800/90 backdrop-blur-xl
+                border border-gray-600/50
+                shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.05)]
+            `,
             outline: `
-        bg-transparent
-        border border-gray-700
-      `
+                bg-gray-900/40
+                border border-gray-600/70
+                shadow-[0_1px_4px_rgba(0,0,0,0.2)]
+            `
         };
 
         const accents = {

@@ -7,9 +7,14 @@ import { format } from 'date-fns';
 
 const NOTE_COLORS = ['#00D4AA', '#A855F7', '#0088FF', '#22C55E', '#FFB800', '#FF4757'];
 
-export const NotesWidget = () => {
+interface NotesWidgetProps {
+    externalOpen?: boolean;
+    onExternalClose?: () => void;
+}
+
+export const NotesWidget = ({ externalOpen, onExternalClose }: NotesWidgetProps = {}) => {
     const { addNote, updateNote, deleteNote, togglePin, archiveNote, getActiveNotes } = useNotesStore();
-    const [isOpen, setIsOpen] = useState(false);
+    const [internalOpen, setInternalOpen] = useState(false);
     const [newNote, setNewNote] = useState('');
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editContent, setEditContent] = useState('');
@@ -17,6 +22,16 @@ export const NotesWidget = () => {
     const [selectedColor, setSelectedColor] = useState(NOTE_COLORS[0]);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const widgetRef = useRef<HTMLDivElement>(null);
+
+    // Use external or internal open state
+    const isOpen = externalOpen !== undefined ? externalOpen : internalOpen;
+    const setIsOpen = (value: boolean) => {
+        if (externalOpen !== undefined && onExternalClose && !value) {
+            onExternalClose();
+        } else {
+            setInternalOpen(value);
+        }
+    };
 
     const activeNotes = getActiveNotes();
     const filteredNotes = searchQuery
@@ -81,28 +96,29 @@ export const NotesWidget = () => {
 
     return (
         <>
-            {/* Floating Button - Mobile optimized */}
+            {/* Floating Button - Hidden on mobile (use menu instead) */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
-                    "fixed bottom-24 sm:bottom-6 right-4 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-lg transition-all duration-300",
-                    "flex items-center justify-center",
+                    "hidden sm:flex fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg transition-all duration-300",
+                    "items-center justify-center",
                     "bg-gradient-to-br from-yellow-400 to-orange-500 hover:scale-110",
                     isOpen && "rotate-45"
                 )}
             >
-                {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" /> : <StickyNote className="w-5 h-5 sm:w-6 sm:h-6 text-white" />}
+                {isOpen ? <X className="w-6 h-6 text-white" /> : <StickyNote className="w-6 h-6 text-white" />}
             </button>
 
-            {/* Notes Panel - Mobile Optimized */}
+            {/* Notes Panel - Full screen modal on mobile */}
             <div
                 ref={widgetRef}
                 className={cn(
                     "fixed z-50 rounded-2xl overflow-hidden transition-all duration-300 transform",
-                    "bg-gray-900/95 backdrop-blur-xl border border-gray-800 shadow-2xl",
-                    // Mobile: Full width with margins, positioned above nav
-                    "bottom-40 sm:bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-80 md:w-96",
-                    "max-h-[60vh] sm:max-h-[70vh]",
+                    "bg-gray-900/98 backdrop-blur-xl border border-gray-700 shadow-2xl",
+                    // Desktop: positioned bottom-right
+                    "sm:bottom-24 sm:right-6 sm:w-80 md:w-96 sm:max-h-[70vh]",
+                    // Mobile: Full screen modal style  
+                    "inset-4 sm:inset-auto max-h-[80vh] sm:max-h-[70vh]",
                     isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4 pointer-events-none"
                 )}
             >

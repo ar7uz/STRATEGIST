@@ -27,6 +27,7 @@ function App() {
   const [activeSessionTask, setActiveSessionTask] = useState<Task | null>(null);
   const [showBriefing, setShowBriefing] = useState(false);
   const [showWeeklyReview, setShowWeeklyReview] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
 
   const { sectors } = useSectorsStore();
   const { getTodayProgress } = useHabitsStore();
@@ -260,12 +261,18 @@ function App() {
 
   return (
     <>
-      <Layout activeTab={activeTab} onTabChange={setActiveTab}>
+      <Layout activeTab={activeTab} onTabChange={(tab) => {
+        if (tab === 'notes') {
+          setShowNotes(true);
+        } else {
+          setActiveTab(tab);
+        }
+      }}>
         {renderContent()}
       </Layout>
       <MorningBriefing isOpen={showBriefing} onClose={() => setShowBriefing(false)} />
       <WeeklyReview isOpen={showWeeklyReview} onClose={() => setShowWeeklyReview(false)} />
-      <NotesWidget />
+      <NotesWidget externalOpen={showNotes} onExternalClose={() => setShowNotes(false)} />
     </>
   );
 }
