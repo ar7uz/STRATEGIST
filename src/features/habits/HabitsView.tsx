@@ -176,21 +176,22 @@ export const HabitsView = () => {
                                             return (
                                                 <button
                                                     key={day.toISOString()}
-                                                    onClick={() => toggleCompletion(habit.id, day)}
+                                                    onClick={() => isDayToday && toggleCompletion(habit.id, day)}
+                                                    disabled={!isDayToday}
                                                     className={cn(
                                                         "w-9 h-9 sm:w-8 sm:h-8 rounded-lg flex flex-col items-center justify-center transition-all",
                                                         completed
                                                             ? "text-white"
                                                             : isDayToday
-                                                                ? "border-2 border-dashed border-cyan-500/50 hover:border-cyan-400"
-                                                                : "bg-gray-800/50 hover:bg-gray-700/50"
+                                                                ? "border-2 border-dashed border-cyan-500/50 hover:border-cyan-400 cursor-pointer"
+                                                                : "bg-gray-800/30 cursor-not-allowed opacity-60"
                                                     )}
                                                     style={completed ? { backgroundColor: habit.color } : {}}
                                                 >
                                                     {/* Show day letter on mobile */}
                                                     <span className={cn(
                                                         "text-[10px] sm:hidden font-medium",
-                                                        completed ? "text-white/80" : isDayToday ? "text-cyan-400" : "text-gray-500"
+                                                        completed ? "text-white/80" : isDayToday ? "text-cyan-400" : "text-gray-600"
                                                     )}>
                                                         {format(day, 'EEEEE')}
                                                     </span>

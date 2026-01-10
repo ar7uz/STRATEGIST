@@ -269,41 +269,42 @@ export const ProjectsView = () => {
                 </Card>
             )}
 
-            {/* View Mode & Filters */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                {/* Status Filters - Full width on mobile */}
-                <div className="flex gap-1.5">
+            {/* View Mode & Filters - Full Width */}
+            <div className="space-y-3">
+                {/* Status Filters - Full width equal distribution */}
+                <div className="flex gap-1 p-1 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700/50">
                     {(['all', 'active', 'completed'] as const).map(status => (
                         <button
                             key={status}
                             onClick={() => setFilterStatus(status)}
                             className={cn(
-                                "flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors",
+                                "flex-1 py-2.5 rounded-lg text-xs font-medium capitalize transition-colors",
                                 filterStatus === status
-                                    ? "bg-cyan-400 text-gray-900"
-                                    : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                                    ? "bg-gray-800 text-white shadow-lg"
+                                    : "text-gray-400 hover:text-white hover:bg-gray-800/50"
                             )}
                         >
                             {status}
                         </button>
                     ))}
                 </div>
-                {/* View Mode Toggle */}
-                <div className="flex gap-1 bg-gray-800 rounded-lg p-1 self-start sm:self-auto">
+                {/* View Mode Toggle - Full width */}
+                <div className="flex gap-1 p-1 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700/50">
                     {[
-                        { id: 'hierarchy', icon: ListTodo },
-                        { id: 'timeline', icon: Calendar },
-                        { id: 'kanban', icon: BarChart3 }
-                    ].map(({ id, icon: Icon }) => (
+                        { id: 'hierarchy', icon: ListTodo, label: 'List' },
+                        { id: 'timeline', icon: Calendar, label: 'Timeline' },
+                        { id: 'kanban', icon: BarChart3, label: 'Kanban' }
+                    ].map(({ id, icon: Icon, label }) => (
                         <button
                             key={id}
                             onClick={() => setViewMode(id as any)}
                             className={cn(
-                                "p-2 rounded-lg transition-colors",
-                                viewMode === id ? "bg-gray-700 text-white" : "text-gray-500 hover:text-white"
+                                "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-colors text-xs font-medium",
+                                viewMode === id ? "bg-gray-800 text-white shadow-lg" : "text-gray-400 hover:text-white hover:bg-gray-800/50"
                             )}
                         >
-                            <Icon className="w-4 h-4" />
+                            <Icon className="w-3.5 h-3.5" />
+                            <span>{label}</span>
                         </button>
                     ))}
                 </div>

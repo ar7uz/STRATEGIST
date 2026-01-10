@@ -89,6 +89,17 @@ export const useHabitsStore = create<HabitsState>()(
             })),
 
             toggleCompletion: (id, date = new Date()) => set((state) => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const targetDate = new Date(date);
+                targetDate.setHours(0, 0, 0, 0);
+
+                // Only allow completion for today - prevent cheating on past days
+                if (targetDate.getTime() !== today.getTime()) {
+                    return state; // Do nothing for past/future days
+                }
+
                 const dateStr = format(date, 'yyyy-MM-dd');
 
                 return {
@@ -130,28 +141,40 @@ export const useHabitsStore = create<HabitsState>()(
 
                 const sortedDates = [...habit.completions]
                     .map(d => parseISO(d))
-                    .sort((a, b) => b.getTime() - a.getTime());
+                    .sort((a, b) => b.getTime() - a.getTime()); // Sort descending (newest first)
 
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
 
-                let streak = 0;
-                let currentDate = today;
+                // Check if user completed today or yesterday
+                const mostRecent = new Date(sortedDates[0]);
+                mostRecent.setHours(0, 0, 0, 0);
 
-                // Check if completed today or yesterday (allow for evening check)
-                const mostRecent = sortedDates[0];
                 const daysSinceLast = differenceInDays(today, mostRecent);
 
+                // If last completion was more than 1 day ago, streak is broken
                 if (daysSinceLast > 1) return 0;
 
-                // Count consecutive days
-                for (const date of sortedDates) {
-                    const diff = differenceInDays(currentDate, date);
+                // Count consecutive days going backwards
+                let streak = 0;
+                let expectedDate = daysSinceLast === 0 ? today : new Date(today.getTime() - 24 * 60 * 60 * 1000);
 
-                    if (diff === 0 || diff === 1) {
+                for (const completion of sortedDates) {
+                    const completionDate = new Date(completion);
+                    completionDate.setHours(0, 0, 0, 0);
+
+                    const diff = differenceInDays(expectedDate, completionDate);
+
+                    if (diff === 0) {
+                        // This is the expected day
                         streak++;
-                        currentDate = date;
+                        // Move expected date to previous day
+                        expectedDate = new Date(expectedDate.getTime() - 24 * 60 * 60 * 1000);
+                    } else if (diff < 0) {
+                        // Completion is in the future relative to expected - skip
+                        continue;
                     } else {
+                        // Gap found - streak broken
                         break;
                     }
                 }
