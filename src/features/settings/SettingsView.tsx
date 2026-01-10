@@ -79,42 +79,42 @@ export const SettingsView = () => {
     };
 
     return (
-        <div className="space-y-8">
-            {/* Header */}
+        <div className="space-y-4">
+            {/* Header - Compact */}
             <div>
-                <h1 className="text-3xl font-bold text-white">Settings</h1>
-                <p className="text-gray-400 mt-1">Customize your strategic command center</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-white">Settings</h1>
+                <p className="text-gray-400 text-xs sm:text-sm">Customize your strategic command center</p>
             </div>
 
             {/* Appearance */}
-            <Card variant="elevated">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-purple-400/10 flex items-center justify-center">
-                        <Palette className="w-5 h-5 text-purple-400" />
+            <Card variant="elevated" className="p-4">
+                <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-purple-400/10 flex items-center justify-center">
+                        <Palette className="w-4 h-4 text-purple-400" />
                     </div>
                     <div>
-                        <h2 className="font-semibold text-white">Appearance</h2>
-                        <p className="text-sm text-gray-400">Theme and visual preferences</p>
+                        <h2 className="font-semibold text-white text-sm">Appearance</h2>
+                        <p className="text-xs text-gray-400">Theme and visual preferences</p>
                     </div>
                 </div>
 
                 {/* Accent Color */}
-                <div className="space-y-3 mb-6">
-                    <label className="text-sm font-medium text-gray-300">Accent Color</label>
-                    <div className="flex gap-3">
+                <div className="space-y-2 mb-4">
+                    <label className="text-xs font-medium text-gray-300">Accent Color</label>
+                    <div className="flex gap-2">
                         {ACCENT_COLORS.map(({ id, color, label }) => (
                             <button
                                 key={id}
                                 title={label}
                                 onClick={() => settings.updateSettings({ accentColor: id as any })}
                                 className={cn(
-                                    "w-12 h-12 rounded-xl transition-all relative",
+                                    "w-8 h-8 sm:w-10 sm:h-10 rounded-lg transition-all relative",
                                     settings.accentColor === id ? "ring-2 ring-white ring-offset-2 ring-offset-gray-900 scale-110" : "hover:scale-105"
                                 )}
                                 style={{ backgroundColor: color }}
                             >
                                 {settings.accentColor === id && (
-                                    <Check className="w-5 h-5 text-white absolute inset-0 m-auto" />
+                                    <Check className="w-4 h-4 text-white absolute inset-0 m-auto" />
                                 )}
                             </button>
                         ))}
@@ -122,21 +122,21 @@ export const SettingsView = () => {
                 </div>
 
                 {/* Theme */}
-                <div className="space-y-3 mb-6">
-                    <label className="text-sm font-medium text-gray-300">Theme</label>
-                    <div className="flex gap-3">
+                <div className="space-y-2 mb-4">
+                    <label className="text-xs font-medium text-gray-300">Theme</label>
+                    <div className="flex gap-2">
                         {THEMES.map(({ id, label, icon: Icon }) => (
                             <button
                                 key={id}
                                 onClick={() => settings.updateSettings({ theme: id as any })}
                                 className={cn(
-                                    "flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-all",
+                                    "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium transition-all",
                                     settings.theme === id
                                         ? "bg-cyan-400 text-gray-900"
                                         : "bg-gray-800 text-gray-300 hover:bg-gray-700"
                                 )}
                             >
-                                <Icon className="w-4 h-4" />
+                                <Icon className="w-3.5 h-3.5" />
                                 {label}
                             </button>
                         ))}
@@ -144,15 +144,15 @@ export const SettingsView = () => {
                 </div>
 
                 {/* Font Size */}
-                <div className="space-y-3 mb-6">
-                    <label className="text-sm font-medium text-gray-300">Font Size</label>
-                    <div className="flex gap-3">
+                <div className="space-y-2 mb-4">
+                    <label className="text-xs font-medium text-gray-300">Font Size</label>
+                    <div className="flex gap-2">
                         {(['small', 'medium', 'large'] as const).map((size) => (
                             <button
                                 key={size}
                                 onClick={() => settings.updateSettings({ fontSize: size })}
                                 className={cn(
-                                    "flex-1 py-3 rounded-xl font-medium transition-all capitalize",
+                                    "flex-1 py-2 rounded-lg text-xs font-medium transition-all capitalize",
                                     settings.fontSize === size
                                         ? "bg-cyan-400 text-gray-900"
                                         : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -165,22 +165,22 @@ export const SettingsView = () => {
                 </div>
 
                 {/* Reduce Motion */}
-                <div className="flex items-center justify-between py-3 border-t border-gray-800">
+                <div className="flex items-center justify-between py-2 border-t border-gray-800">
                     <div>
-                        <p className="font-medium text-white">Reduce Motion</p>
-                        <p className="text-sm text-gray-500">Disable animations for accessibility</p>
+                        <p className="font-medium text-white text-sm">Reduce Motion</p>
+                        <p className="text-xs text-gray-500">Disable animations</p>
                     </div>
                     <button
                         onClick={() => settings.updateSettings({ reduceMotion: !settings.reduceMotion })}
                         className={cn(
-                            "w-12 h-7 rounded-full transition-colors relative",
+                            "w-10 h-6 rounded-full transition-colors relative",
                             settings.reduceMotion ? "bg-cyan-400" : "bg-gray-700"
                         )}
                     >
                         <div
                             className={cn(
-                                "w-5 h-5 rounded-full bg-white absolute top-1 transition-transform",
-                                settings.reduceMotion ? "translate-x-6" : "translate-x-1"
+                                "w-4 h-4 rounded-full bg-white absolute top-1 transition-transform",
+                                settings.reduceMotion ? "translate-x-5" : "translate-x-1"
                             )}
                         />
                     </button>
@@ -188,27 +188,27 @@ export const SettingsView = () => {
             </Card>
 
             {/* Focus Settings */}
-            <Card variant="elevated">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-cyan-400/10 flex items-center justify-center">
-                        <Target className="w-5 h-5 text-cyan-400" />
+            <Card variant="elevated" className="p-4">
+                <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-cyan-400/10 flex items-center justify-center">
+                        <Target className="w-4 h-4 text-cyan-400" />
                     </div>
                     <div>
-                        <h2 className="font-semibold text-white">Focus Session</h2>
-                        <p className="text-sm text-gray-400">Timer and concentration settings</p>
+                        <h2 className="font-semibold text-white text-sm">Focus Session</h2>
+                        <p className="text-xs text-gray-400">Timer settings</p>
                     </div>
                 </div>
 
                 {/* Default Duration */}
-                <div className="space-y-3 mb-6">
-                    <label className="text-sm font-medium text-gray-300">Default Focus Duration</label>
-                    <div className="flex gap-2">
+                <div className="space-y-2 mb-4">
+                    <label className="text-xs font-medium text-gray-300">Default Duration</label>
+                    <div className="flex gap-1.5">
                         {[15, 25, 30, 45, 60, 90].map((mins) => (
                             <button
                                 key={mins}
                                 onClick={() => settings.updateSettings({ defaultFocusDuration: mins })}
                                 className={cn(
-                                    "flex-1 py-2.5 rounded-lg text-sm font-medium transition-all",
+                                    "flex-1 py-2 rounded-lg text-xs font-medium transition-all",
                                     settings.defaultFocusDuration === mins
                                         ? "bg-cyan-400 text-gray-900"
                                         : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -221,10 +221,10 @@ export const SettingsView = () => {
                 </div>
 
                 {/* Sound Volume */}
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-4">
                     <div className="flex justify-between">
-                        <label className="text-sm font-medium text-gray-300">Default Volume</label>
-                        <span className="text-sm text-cyan-400">{settings.soundVolume}%</span>
+                        <label className="text-xs font-medium text-gray-300">Volume</label>
+                        <span className="text-xs text-cyan-400">{settings.soundVolume}%</span>
                     </div>
                     <input
                         type="range"
@@ -232,27 +232,27 @@ export const SettingsView = () => {
                         max="100"
                         value={settings.soundVolume}
                         onChange={(e) => settings.updateSettings({ soundVolume: Number(e.target.value) })}
-                        className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                        className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
                     />
                 </div>
 
                 {/* Break Reminders */}
-                <div className="flex items-center justify-between py-3 border-t border-gray-800">
+                <div className="flex items-center justify-between py-2 border-t border-gray-800">
                     <div>
-                        <p className="font-medium text-white">Break Reminders</p>
-                        <p className="text-sm text-gray-500">Get notified to take breaks</p>
+                        <p className="font-medium text-white text-sm">Break Reminders</p>
+                        <p className="text-xs text-gray-500">Get notified to take breaks</p>
                     </div>
                     <button
                         onClick={() => settings.updateSettings({ breakReminders: !settings.breakReminders })}
                         className={cn(
-                            "w-12 h-7 rounded-full transition-colors relative",
+                            "w-10 h-6 rounded-full transition-colors relative",
                             settings.breakReminders ? "bg-cyan-400" : "bg-gray-700"
                         )}
                     >
                         <div
                             className={cn(
-                                "w-5 h-5 rounded-full bg-white absolute top-1 transition-transform",
-                                settings.breakReminders ? "translate-x-6" : "translate-x-1"
+                                "w-4 h-4 rounded-full bg-white absolute top-1 transition-transform",
+                                settings.breakReminders ? "translate-x-5" : "translate-x-1"
                             )}
                         />
                     </button>
@@ -260,14 +260,14 @@ export const SettingsView = () => {
             </Card>
 
             {/* Productivity Goals */}
-            <Card variant="elevated">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-orange-400/10 flex items-center justify-center">
-                        <Zap className="w-5 h-5 text-orange-400" />
+            <Card variant="elevated" className="p-4">
+                <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-orange-400/10 flex items-center justify-center">
+                        <Zap className="w-4 h-4 text-orange-400" />
                     </div>
                     <div>
-                        <h2 className="font-semibold text-white">Daily Goals</h2>
-                        <p className="text-sm text-gray-400">Set your productivity targets</p>
+                        <h2 className="font-semibold text-white text-sm">Daily Goals</h2>
+                        <p className="text-xs text-gray-400">Productivity targets</p>
                     </div>
                 </div>
 

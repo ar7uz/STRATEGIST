@@ -269,26 +269,24 @@ export const ProjectsView = () => {
                 </Card>
             )}
 
-            {/* View Mode & Filters - Mobile Optimized */}
+            {/* View Mode & Filters */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                {/* Status Filters - Scrollable on mobile */}
-                <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
-                    <div className="flex gap-1.5 min-w-max">
-                        {(['all', 'active', 'completed'] as const).map(status => (
-                            <button
-                                key={status}
-                                onClick={() => setFilterStatus(status)}
-                                className={cn(
-                                    "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium capitalize transition-colors whitespace-nowrap",
-                                    filterStatus === status
-                                        ? "bg-cyan-400 text-gray-900"
-                                        : "bg-gray-800 text-gray-400 hover:bg-gray-700"
-                                )}
-                            >
-                                {status}
-                            </button>
-                        ))}
-                    </div>
+                {/* Status Filters - Full width on mobile */}
+                <div className="flex gap-1.5">
+                    {(['all', 'active', 'completed'] as const).map(status => (
+                        <button
+                            key={status}
+                            onClick={() => setFilterStatus(status)}
+                            className={cn(
+                                "flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors",
+                                filterStatus === status
+                                    ? "bg-cyan-400 text-gray-900"
+                                    : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                            )}
+                        >
+                            {status}
+                        </button>
+                    ))}
                 </div>
                 {/* View Mode Toggle */}
                 <div className="flex gap-1 bg-gray-800 rounded-lg p-1 self-start sm:self-auto">
