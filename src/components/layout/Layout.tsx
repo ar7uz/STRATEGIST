@@ -11,7 +11,8 @@ import {
     Grid3X3,
     Brain,
     FolderKanban,
-    MoreHorizontal
+    MoreHorizontal,
+    StickyNote
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { haptic, getTelegramUser, isTelegramWebApp } from '../../lib/telegram';
@@ -39,6 +40,7 @@ const NAV_ITEMS: NavItem[] = [
     { id: 'insights', label: 'AI Insights', icon: Brain },
     { id: 'settings', label: 'Settings', icon: Settings },
     { id: 'admin', label: 'Admin', icon: Shield },
+    { id: 'notes', label: 'Quick Notes', icon: StickyNote },
 ];
 
 // Mobile navigation items (first 4 + More menu)

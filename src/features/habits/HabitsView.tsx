@@ -102,19 +102,19 @@ export const HabitsView = () => {
                 </div>
             </Card>
 
-            {/* Habit List with 7-day grid */}
-            <div className="space-y-3">
-                {/* Header Row */}
-                <div className="flex items-center gap-4 px-5">
+            {/* Habit List with 7-day grid - Mobile Optimized */}
+            <div className="space-y-2">
+                {/* Header Row - Hidden on mobile, shown on tablet+ */}
+                <div className="hidden sm:flex items-center gap-3 px-4">
                     <div className="flex-1">
-                        <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Habit</span>
+                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Habit</span>
                     </div>
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-1">
                         {last7Days.map(day => (
                             <div
                                 key={day.toISOString()}
                                 className={cn(
-                                    "w-9 text-center text-xs font-medium",
+                                    "w-8 text-center text-xs font-medium",
                                     isSameDay(day, today) ? "text-cyan-400" : "text-gray-500"
                                 )}
                             >
@@ -122,8 +122,8 @@ export const HabitsView = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="w-20 text-center">
-                        <span className="text-sm font-medium text-gray-500">Streak</span>
+                    <div className="w-16 text-center">
+                        <span className="text-xs font-medium text-gray-500">Streak</span>
                     </div>
                 </div>
 
@@ -142,53 +142,66 @@ export const HabitsView = () => {
                 ) : (
                     activeHabits.map(habit => {
                         return (
-
-                            <Card key={habit.id} className="group hover:bg-gray-800/60 transition-colors">
-                                <div className="flex items-center gap-4">
+                            <Card key={habit.id} className="group hover:bg-gray-800/60 transition-colors p-3 sm:p-4">
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                                     {/* Habit Info */}
-                                    <div className="flex-1 flex items-center gap-3 min-w-0">
+                                    <div className="flex items-center gap-3 flex-1 min-w-0">
                                         <div
-                                            className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-base sm:text-lg flex-shrink-0"
                                             style={{ background: `${habit.color}20` }}
                                         >
                                             {habit.icon}
                                         </div>
-                                        <div className="min-w-0">
-                                            <h4 className="font-medium text-white truncate">{habit.name}</h4>
+                                        <div className="min-w-0 flex-1">
+                                            <h4 className="font-medium text-white truncate text-sm sm:text-base">{habit.name}</h4>
                                             <p className="text-xs text-gray-500">
                                                 {habit.frequency === 'daily' ? 'Daily' : `${typeof habit.frequency === 'object' ? habit.frequency.times : 3}x/week`}
                                             </p>
                                         </div>
+                                        {/* Mobile streak badge */}
+                                        <div className="sm:hidden flex items-center gap-1 text-sm">
+                                            {habit.currentStreak > 0 && <Flame className="w-3.5 h-3.5 text-orange-400" />}
+                                            <span className={cn("font-bold", habit.currentStreak > 0 ? "text-orange-400" : "text-gray-600")}>
+                                                {habit.currentStreak}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    {/* 7-day completion grid */}
-                                    <div className="flex gap-1.5">
+                                    {/* 7-day completion grid - Compact on mobile */}
+                                    <div className="flex gap-1 justify-between sm:justify-start">
                                         {last7Days.map(day => {
                                             const completed = isCompletedOn(habit.id, day);
-                                            const isToday = isSameDay(day, today);
+                                            const isDayToday = isSameDay(day, today);
 
                                             return (
                                                 <button
                                                     key={day.toISOString()}
                                                     onClick={() => toggleCompletion(habit.id, day)}
                                                     className={cn(
-                                                        "w-9 h-9 rounded-lg flex items-center justify-center transition-all",
+                                                        "w-9 h-9 sm:w-8 sm:h-8 rounded-lg flex flex-col items-center justify-center transition-all",
                                                         completed
                                                             ? "text-white"
-                                                            : isToday
-                                                                ? "border-2 border-dashed border-gray-600 hover:border-gray-500"
+                                                            : isDayToday
+                                                                ? "border-2 border-dashed border-cyan-500/50 hover:border-cyan-400"
                                                                 : "bg-gray-800/50 hover:bg-gray-700/50"
                                                     )}
                                                     style={completed ? { backgroundColor: habit.color } : {}}
                                                 >
-                                                    {completed && <Check className="w-4 h-4" />}
+                                                    {/* Show day letter on mobile */}
+                                                    <span className={cn(
+                                                        "text-[10px] sm:hidden font-medium",
+                                                        completed ? "text-white/80" : isDayToday ? "text-cyan-400" : "text-gray-500"
+                                                    )}>
+                                                        {format(day, 'EEEEE')}
+                                                    </span>
+                                                    {completed && <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                                                 </button>
                                             );
                                         })}
                                     </div>
 
-                                    {/* Streak */}
-                                    <div className="w-20 flex items-center justify-center gap-1">
+                                    {/* Desktop Streak */}
+                                    <div className="hidden sm:flex w-16 items-center justify-center gap-1">
                                         {habit.currentStreak > 0 && (
                                             <Flame className="w-4 h-4 text-orange-400" />
                                         )}
@@ -200,8 +213,8 @@ export const HabitsView = () => {
                                         </span>
                                     </div>
 
-                                    {/* Actions */}
-                                    <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    {/* Actions - Always visible on mobile */}
+                                    <div className="hidden sm:flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <Button
                                             variant="ghost"
                                             size="icon"

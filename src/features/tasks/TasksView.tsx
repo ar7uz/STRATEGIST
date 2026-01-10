@@ -168,29 +168,31 @@ export const TasksView: React.FC<TasksViewProps> = ({ onStartSession }) => {
                 </Button>
             </div>
 
-            {/* View Mode Tabs */}
-            <div className="flex items-center gap-2 p-1 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-800/50 w-fit">
-                {[
-                    { id: 'today', label: 'Today', icon: Calendar },
-                    { id: 'week', label: 'Week', icon: CalendarDays },
-                    { id: 'month', label: 'Month', icon: CalendarRange },
-                    { id: 'all', label: 'All', icon: ListTodo },
-                ].map(({ id, label, icon: Icon }) => (
-                    <button
-                        key={id}
-                        onClick={() => setViewMode(id as ViewMode)}
-                        className={`
-              flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
-              ${viewMode === id
-                                ? 'bg-gray-800 text-white shadow-lg'
-                                : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
-                            }
-            `}
-                    >
-                        <Icon className="w-4 h-4" />
-                        {label}
-                    </button>
-                ))}
+            {/* View Mode Tabs - Mobile Optimized */}
+            <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+                <div className="flex items-center gap-1 p-1 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-800/50 w-fit min-w-max">
+                    {[
+                        { id: 'today', label: 'Today', icon: Calendar },
+                        { id: 'week', label: 'Week', icon: CalendarDays },
+                        { id: 'month', label: 'Month', icon: CalendarRange },
+                        { id: 'all', label: 'All', icon: ListTodo },
+                    ].map(({ id, label, icon: Icon }) => (
+                        <button
+                            key={id}
+                            onClick={() => setViewMode(id as ViewMode)}
+                            className={`
+                                flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap
+                                ${viewMode === id
+                                    ? 'bg-gray-800 text-white shadow-lg'
+                                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                                }
+                            `}
+                        >
+                            <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                            <span>{label}</span>
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* Week Calendar (shown in week view) */}

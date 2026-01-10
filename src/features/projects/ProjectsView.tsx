@@ -196,47 +196,47 @@ export const ProjectsView = () => {
     const selectedProject = showProjectDetails ? projects.find(p => p.id === showProjectDetails) : null;
 
     return (
-        <div className="space-y-8">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                        <Target className="w-7 h-7 text-white" />
+        <div className="space-y-6">
+            {/* Header - Mobile Optimized */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                        <Target className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-white">Goals & Projects</h1>
-                        <p className="text-gray-400 mt-1">Organize your objectives hierarchically</p>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-white">Goals & Projects</h1>
+                        <p className="text-gray-400 text-sm sm:text-base">Organize your objectives hierarchically</p>
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => openProjectModal()} leftIcon={<Plus className="w-4 h-4" />}>
+                    <Button variant="outline" onClick={() => openProjectModal()} leftIcon={<Plus className="w-4 h-4" />} className="flex-1 sm:flex-none text-sm">
                         New Project
                     </Button>
-                    <Button onClick={() => openGoalModal()} leftIcon={<Plus className="w-4 h-4" />}>
+                    <Button onClick={() => openGoalModal()} leftIcon={<Plus className="w-4 h-4" />} className="flex-1 sm:flex-none text-sm">
                         New Goal
                     </Button>
                 </div>
             </div>
 
-            {/* Stats Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Card className="text-center py-5">
-                    <p className="text-3xl font-bold text-white">{activeGoals.length}</p>
+            {/* Stats Cards - Compact on mobile */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <Card className="text-center py-4">
+                    <p className="text-2xl sm:text-3xl font-bold text-white">{activeGoals.length}</p>
                     <p className="text-xs text-gray-500 mt-1">Active Goals</p>
                 </Card>
-                <Card className="text-center py-5">
-                    <p className="text-3xl font-bold text-purple-400">{activeProjects.length}</p>
+                <Card className="text-center py-4">
+                    <p className="text-2xl sm:text-3xl font-bold text-purple-400">{activeProjects.length}</p>
                     <p className="text-xs text-gray-500 mt-1">Active Projects</p>
                 </Card>
-                <Card className="text-center py-5">
-                    <div className="flex items-center justify-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-cyan-400" />
-                        <p className="text-3xl font-bold text-cyan-400">{overallProgress}%</p>
+                <Card className="text-center py-4">
+                    <div className="flex items-center justify-center gap-1">
+                        <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
+                        <p className="text-2xl sm:text-3xl font-bold text-cyan-400">{overallProgress}%</p>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">Overall Progress</p>
                 </Card>
-                <Card className="text-center py-5">
-                    <p className="text-3xl font-bold text-green-400">{goals.filter(g => g.status === 'completed').length}</p>
+                <Card className="text-center py-4">
+                    <p className="text-2xl sm:text-3xl font-bold text-green-400">{goals.filter(g => g.status === 'completed').length}</p>
                     <p className="text-xs text-gray-500 mt-1">Goals Achieved</p>
                 </Card>
             </div>
@@ -244,24 +244,24 @@ export const ProjectsView = () => {
             {/* Upcoming Deadlines */}
             {upcomingDeadlines.length > 0 && (
                 <Card className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-500/20">
-                    <div className="flex items-center gap-2 mb-4">
-                        <AlertTriangle className="w-5 h-5 text-orange-400" />
-                        <h3 className="font-semibold text-white">Upcoming Deadlines</h3>
+                    <div className="flex items-center gap-2 mb-3">
+                        <AlertTriangle className="w-4 h-4 text-orange-400" />
+                        <h3 className="font-semibold text-white text-sm">Upcoming Deadlines</h3>
                     </div>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2">
                         {upcomingDeadlines.map(project => (
                             <button
                                 key={project.id}
                                 onClick={() => setShowProjectDetails(project.id)}
                                 className={cn(
-                                    "flex items-center gap-2 px-3 py-2 rounded-lg transition-colors",
+                                    "flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg transition-colors text-sm",
                                     project.isOverdue ? "bg-red-500/20 text-red-400" : "bg-orange-500/20 text-orange-300"
                                 )}
                             >
-                                <span>{project.icon}</span>
-                                <span className="text-sm font-medium">{project.name}</span>
-                                <span className="text-xs px-2 py-0.5 rounded bg-black/20">
-                                    {project.isOverdue ? 'Overdue' : `${project.daysLeft}d left`}
+                                <span className="text-base">{project.icon}</span>
+                                <span className="font-medium truncate max-w-[100px]">{project.name}</span>
+                                <span className="text-xs px-1.5 py-0.5 rounded bg-black/20">
+                                    {project.isOverdue ? 'Late' : `${project.daysLeft}d`}
                                 </span>
                             </button>
                         ))}
@@ -269,25 +269,29 @@ export const ProjectsView = () => {
                 </Card>
             )}
 
-            {/* View Mode & Filters */}
-            <div className="flex items-center justify-between">
-                <div className="flex gap-2">
-                    {(['all', 'active', 'completed'] as const).map(status => (
-                        <button
-                            key={status}
-                            onClick={() => setFilterStatus(status)}
-                            className={cn(
-                                "px-4 py-2 rounded-lg text-sm font-medium capitalize transition-colors",
-                                filterStatus === status
-                                    ? "bg-cyan-400 text-gray-900"
-                                    : "bg-gray-800 text-gray-400 hover:bg-gray-700"
-                            )}
-                        >
-                            {status}
-                        </button>
-                    ))}
+            {/* View Mode & Filters - Mobile Optimized */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                {/* Status Filters - Scrollable on mobile */}
+                <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+                    <div className="flex gap-1.5 min-w-max">
+                        {(['all', 'active', 'completed'] as const).map(status => (
+                            <button
+                                key={status}
+                                onClick={() => setFilterStatus(status)}
+                                className={cn(
+                                    "px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium capitalize transition-colors whitespace-nowrap",
+                                    filterStatus === status
+                                        ? "bg-cyan-400 text-gray-900"
+                                        : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                                )}
+                            >
+                                {status}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-                <div className="flex gap-1 bg-gray-800 rounded-lg p-1">
+                {/* View Mode Toggle */}
+                <div className="flex gap-1 bg-gray-800 rounded-lg p-1 self-start sm:self-auto">
                     {[
                         { id: 'hierarchy', icon: ListTodo },
                         { id: 'timeline', icon: Calendar },
